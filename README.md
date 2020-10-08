@@ -1,2 +1,2 @@
-# docker-pulsar
-Docker image packaging for Apache Pulsar
+# Docker image packaging for Apache Pulsar
+
