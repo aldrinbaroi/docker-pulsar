@@ -1,0 +1,46 @@
+#
+version: "3.2"
+
+networks:
+  macvlan-net-vm-node1:
+    external: true
+
+services:
+  ap1:
+    image: aldrin/pulsar
+    restart: always
+    hostname: ap-c1-n1
+    networks:
+      macvlan-net-vm-node1:
+        ipv4_address: 172.16.11.7
+    environment:
+      BROKER__CLUSTER_NAME: "apc1"
+      BROKER__ZOOKEEPER_SERVERS: "zk-c1-n1:2181,zk-c1-n2:2181,zk-c1-n3:2181"
+      BROKER__CONFIGURATION_STORE_SERVERS: "zk-cg-n1:2181,zk-cg-n2:2181,zk-cg-n3:2181"
+      BROKER__BOOKKEEPER_METADATA_SERVICE_URI: "zk+hierarchical://zk-c1-n1:2181;zk-c1-n2:2181;zk-c1-n3:2181/ledgers"
+  ap2:
+    image: aldrin/pulsar
+    restart: always
+    hostname: ap-c1-n2
+    networks:
+      macvlan-net-vm-node1:
+        ipv4_address: 172.16.11.8
+    environment:
+      BROKER__CLUSTER_NAME: "apc1"
+      BROKER__ZOOKEEPER_SERVERS: "zk-c1-n1:2181,zk-c1-n2:2181,zk-c1-n3:2181"
+      BROKER__CONFIGURATION_STORE_SERVERS: "zk-cg-n1:2181,zk-cg-n2:2181,zk-cg-n3:2181"
+      BROKER__BOOKKEEPER_METADATA_SERVICE_URI: "zk+hierarchical://zk-c1-n1:2181;zk-c1-n2:2181;zk-c1-n3:2181/ledgers"
+  ap3:
+    image: aldrin/pulsar
+    restart: always
+    hostname: ap-c1-n3
+    networks:
+      macvlan-net-vm-node1:
+        ipv4_address: 172.16.11.9
+    environment:
+      BROKER__CLUSTER_NAME: "apc1"
+      BROKER__ZOOKEEPER_SERVERS: "zk-c1-n1:2181,zk-c1-n2:2181,zk-c1-n3:2181"
+      BROKER__CONFIGURATION_STORE_SERVERS: "zk-cg-n1:2181,zk-cg-n2:2181,zk-cg-n3:2181"
+      BROKER__BOOKKEEPER_METADATA_SERVICE_URI: "zk+hierarchical://zk-c1-n1:2181;zk-c1-n2:2181;zk-c1-n3:2181/ledgers"
+
+#::END::
