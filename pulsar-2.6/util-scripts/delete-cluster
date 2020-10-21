@@ -4,19 +4,7 @@
 #
 
 source cluster.conf
-
-abort() 
-{
-	echo "$1 not set. Aborting..."
-	exit 1
-}
-
-[[ -z "$CLUSTER_NAME" ]] && abort "Cluster name"
-[[ -z "$PULSAR_HOSTNAME" ]] && abort "Pulsar hostname"
-[[ -z "$IMAGE" ]] && abort "Image name"
-[[ -z "$BROKER__ZOOKEEPER_SERVERS" ]] && abort "Zookeeper servers"
-[[ -z "$BROKER__CONFIGURATION_STORE_SERVERS" ]] && abort "Configuration servers"
-[[ -z "$BROKER__BOOKKEEPER_METADATA_SERVICE_URI" ]] && abort "Bookkeeper metadata service URI"
+source util-common
 
 DELETE_CMD="docker run --rm"
 [[ ! -z "$NETWORK_NAME" ]] && DELETE_CMD+=" --network $NETWORK_NAME"
