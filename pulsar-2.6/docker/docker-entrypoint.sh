@@ -180,6 +180,12 @@ elif [[ "$CMD" == "initCluster" ]]; then
 	areServersReachable "Configuration Store" isZkServerReachable "$configurationStoreServers"
 	shift 1
 	initCluster "$@" 
+elif [[ "$CMD" == "admin" ]]; then
+        areServersReachable "Local Zookeeper" isZkServerReachable "$zookeeperServers"
+        areServersReachable "Configuration Store" isZkServerReachable "$configurationStoreServers"
+        shift 2
+        loadPropertiesFile ${CONF_FILES["client"]}
+        exec gosu pulsar pulsar-admin $MODULE "$@"
 else
 	exec gosu pulsar "$@"
 fi 
